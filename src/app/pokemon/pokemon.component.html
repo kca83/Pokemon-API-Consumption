@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div class="col-6 offset-3">
+      <img [src]="pokemon.sprites.front_default" alt="">
+      <h1>{{ pokemon.name | titlecase }}</h1>
+      <h3>Number: {{ pokemon.id }}</h3>
+      <h3 *ngFor="let types of pokemon.types" [style.background-color]="color[types.type.name]">
+        Type: {{ types.type.name | titlecase }}
+      </h3>
+      <h3>Evolution Chain: {{ displayEvolutionChain() | titlecase }}</h3>
+      <br/><br/>
+      <div class="row">
+        <div class="col-6">
+          <input class="form-control" placeholder="Search by ID" [(ngModel)]="searchID" (keyup.enter)="getPokemonById()">
+        </div>
+        <div class="col-6">
+          <input type="submit" value="Get Pokemon by ID" (click)="getPokemonById()">
+        </div>
+      </div>
+      <br/><br/>
+      <input type="submit" value="Get Random Pokemon" (click)="getRandomPokemon()">
+    </div>
+  </div>
+</div>

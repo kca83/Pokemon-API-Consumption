@@ -1,11 +1,21 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { PokemonComponent } from './pokemon/pokemon.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { PokemonService } from './pokemon.service';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        PokemonComponent
       ],
+      imports: [
+        BrowserModule,
+        HttpClientModule
+      ],
+      providers: [PokemonService]
     }).compileComponents();
   }));
   it('should create the app', async(() => {
