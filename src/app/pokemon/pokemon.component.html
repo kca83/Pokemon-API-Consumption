@@ -8,6 +8,9 @@
         Type: {{ types.type.name | titlecase }}
       </h3>
       <h3>Evolution Chain: {{ displayEvolutionChain() | titlecase }}</h3>
+      <br/>
+      <input type="submit" value="<- Previous" (click)="getPreviousPokemon()">
+      <input type="submit" value="Next ->" (click)="getNextPokemon()">
       <br/><br/>
       <div class="row">
         <div class="col-6">
@@ -15,6 +18,14 @@
         </div>
         <div class="col-6">
           <input type="submit" value="Get Pokemon by ID" (click)="getPokemonById()">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <input class="form-control" placeholder="Search by Name" [(ngModel)]="searchName" (keyup.enter)="getPokemonByName()">
+        </div>
+        <div class="col-6">
+          <input type="submit" value="Get Pokemon by Name" (click)="getPokemonByName()">
         </div>
       </div>
       <br/><br/>

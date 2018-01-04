@@ -9,8 +9,53 @@ import { PokemonService } from '../pokemon.service';
 })
 export class PokemonComponent implements OnInit {
 
+  defaultPokemonData = {
+        "id": 25,
+        "name": "pikachu",
+        "types": [
+            {
+                "slot": 1,
+                "type": {
+                    "name": "electric"
+                }
+            }
+        ],
+        "sprites": {
+            "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
+        },
+        "species": {
+            "url": "https://pokeapi.co/api/v2/pokemon-species/25/",
+            "name": "pikachu"
+        },
+        "evolutionChain": {
+            "chain": {
+                "species": {
+                    "url": "https://pokeapi.co/api/v2/pokemon-species/172/",
+                    "name": "pichu"
+                },
+                "evolves_to": [
+                    {
+                        "species": {
+                            "url": "https://pokeapi.co/api/v2/pokemon-species/25/",
+                            "name": "pikachu"
+                        },
+                        "evolves_to": [
+                            {
+                                "species": {
+                                    "url": "https://pokeapi.co/api/v2/pokemon-species/26/",
+                                    "name": "raichu"
+                                },
+                                "evolves_to": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+
   @Input()
-  pokemon: Pokemon = new Pokemon({id: "", name: "", types: [{type: {name: ""}}], sprites: {front_default: ""}});
+  pokemon: Pokemon = new Pokemon(this.defaultPokemonData);
 
   @Input()
   displayEvolutionChain() : string {
@@ -49,11 +94,11 @@ export class PokemonComponent implements OnInit {
   }
 
   searchID: number;
+  searchName: string;
 
   constructor(private pokemonService: PokemonService) { }
 
   ngOnInit() {
-    this.getRandomPokemon();
   }
 
   getRandomPokemon() {
@@ -73,6 +118,26 @@ export class PokemonComponent implements OnInit {
       }
     );
     this.searchID = null;
+  }
+
+  getPokemonByName() {
+    this.pokemonService.getPokemonByName(this.searchName.toLowerCase()).subscribe(
+      (pokemonData) => {
+        this.pokemon = new Pokemon(pokemonData);
+        console.log(pokemonData);
+      }
+    );
+    this.searchName = null;
+  }
+
+  getNextPokemon() {
+    this.searchID = this.pokemon.id + 1;
+    this.getPokemonById();
+  }
+
+  getPreviousPokemon() {
+    this.searchID = this.pokemon.id - 1;
+    this.getPokemonById();
   }
 
 }

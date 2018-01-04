@@ -16,4 +16,8 @@ export class PokemonService {
     return this.http.get<Pokemon>("/pokemon/" + id);
   }
 
+  getPokemonByName(name: string) : Observable<Pokemon> {
+    return this.http.get<Pokemon>("/pokemon?name=" + name);
+  }
+
 }
